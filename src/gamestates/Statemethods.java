@@ -15,7 +15,7 @@ public interface Statemethods {
 
     public void mouseReleased(MouseEvent e);
 
-    public void mouseMoved(KeyEvent e);
+    public void mouseMoved(MouseEvent e);
 
     public void keyPressed(KeyEvent e);
 
