@@ -54,7 +54,7 @@ public class HelpMethods {
     }
 
     public static float GetEntityYPosUnderRoofOrAboveFloor(Rectangle2D.Float hitbox, float airSpeed) {
-        int currentTile = (int)(hitbox.y / (Game.TILES_SIZE - 4));
+        int currentTile = (int)(hitbox.y / (Game.TILES_SIZE));
 
         if(airSpeed > 0) {
             //Falling - touching floor

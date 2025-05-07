@@ -29,6 +29,7 @@ public class Player extends Entity {
     private float xDrawOffset = 48 * Game.SCALE;
     private float yDrawOffset = 38 * Game.SCALE;
 
+
     //jumping/gravity
     private float airSpeed = 0f;
     private float gravity = 0.04f * Game.SCALE;
@@ -40,7 +41,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitbox(x, y, (int)(20*Game.SCALE), (int) (28*Game.SCALE));
+        initHitbox(x, y, (int)(20*Game.SCALE), (int) (27*Game.SCALE+1));
     }
 
     public void update() {
@@ -180,7 +181,6 @@ public class Player extends Entity {
             animations = new BufferedImage[14][6];
             for (int j = 0; j < animations.length; j++)
                 for (int i = 0; i < animations[j].length; i++) {
-                    //idleAni[i] = img.getSubimage(i*284, 9*186, 284, 186);
                     animations[j][i] = img.getSubimage(i * 244, j * 186, 244, 186);
                 }
     }
