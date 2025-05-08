@@ -24,23 +24,24 @@ public class LevelManager {
     private void importOutsideSprites() {
         //4x5 tiles = 20
         BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
-        //levelSprite = new BufferedImage[20];
-        levelSprite = new BufferedImage[48];
-        for (int j = 0; j < 4; j++) { //5
-            for (int i = 0; i < 12; i++) { //4
-                int index = j * 12 + i; //4
-                levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
-                //levelSprite[index] = img.getSubimage(i * 128, j * 128, 128, 128);
+        levelSprite = new BufferedImage[20];
+        //levelSprite = new BufferedImage[48];
+        for (int j = 0; j < 5; j++) { //5 //tutorial es 4
+            for (int i = 0; i < 4; i++) { //4 //tutorial es 12
+                int index = j * 4 + i; //4
+                //levelSprite[index] = img.getSubimage(i * 32, j * 32, 32, 32);
+                levelSprite[index] = img.getSubimage(i * 128, j * 128, 128, 128);
 
             }
         }
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int LvlOffset) {
         for (int j = 0; j < Game.TILES_IN_HEIGHT; j++)
-            for (int i = 0; i < Game.TILES_IN_WIDTH; i++) {
+            for (int i = 0; i < levelOne.getLevelData()[0].length; i++) {
                 int index = levelOne.getSpriteIndex(i, j);
-                g.drawImage(levelSprite[index], TILES_SIZE*i, TILES_SIZE*j, TILES_SIZE, TILES_SIZE, null);
+                //g.drawImage(levelSprite[index], TILES_SIZE*i, TILES_SIZE*j, TILES_SIZE, TILES_SIZE, null);
+                g.drawImage(levelSprite[index], TILES_SIZE*i - LvlOffset, TILES_SIZE*j, TILES_SIZE, TILES_SIZE, null);
 
             }
     }

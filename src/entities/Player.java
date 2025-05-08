@@ -41,7 +41,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitbox(x, y, (int)(20*Game.SCALE), (int) (27*Game.SCALE+1));
+        initHitbox(x, y, (int)(20*Game.SCALE), (int) (28*Game.SCALE+1));
     }
 
     public void update() {
@@ -50,14 +50,14 @@ public class Player extends Entity {
         setAnimation();
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g, int LvlOffset) {
 
         //g.drawImage(subImg, 0, 0, 568, 372, null);
         //Player: 244x186
         //g.drawImage(animations[playerAction][aniIndex], (int)x, (int)y, (int)(244*sizeMultiplier), (int)(186*sizeMultiplier), null);
         //g.drawImage(animations[playerAction][aniIndex], (int)xDelta, (int)yDelta, (int)(200*sizeMultiplier), (int)(325*sizeMultiplier), null);
 
-        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height, null);
+        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - LvlOffset, (int) (hitbox.y - yDrawOffset), width, height, null);
         //g.drawRect((int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height);
 
         //drawHitbox(g);
@@ -119,8 +119,12 @@ public class Player extends Entity {
 
         if(jump)
             jump();
-        if(!left && !right && !inAir)
-            return;
+//        if(!left && !right && !inAir)
+//            return;
+//
+        if(!inAir)
+            if((!left && !right) || (right && left))
+                return;
 
         float xSpeed = 0;
 

@@ -26,8 +26,6 @@ public class Game implements Runnable{
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
-
-
     public Game() {
         initClasses();
 
