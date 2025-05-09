@@ -9,6 +9,8 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import static utilz.Constants.Enviroment.*;
 
 public class Playing extends State implements Statemethods{
     private Player player;
@@ -23,9 +25,15 @@ public class Playing extends State implements Statemethods{
     private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
     private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
 
+    private BufferedImage backgroundImg, lianasImg, bgLejanoImg;
+
     public Playing(Game game) {
         super(game);
         initClasses();
+
+        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG);
+        lianasImg = LoadSave.GetSpriteAtlas(LoadSave.BG_LIANAS);
+        bgLejanoImg = LoadSave.GetSpriteAtlas(LoadSave.BG_LEJANO);
     }
 
     private void initClasses() {
@@ -68,6 +76,11 @@ public class Playing extends State implements Statemethods{
 
     @Override
     public void draw(Graphics g) {
+        for(int i = 0; i < 3; i++)
+            g.drawImage(backgroundImg, i * Game.GAME_WIDTH - (int) (xLvlOffset * 0.3), 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+
+        drawLianas(g);
+
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
 
@@ -76,6 +89,18 @@ public class Playing extends State implements Statemethods{
             g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
             pausedOverlay.draw(g);
         }
+    }
+
+    private void drawLianas(Graphics g) {
+
+        for(int i = 0; i < 3; i++)
+            g.drawImage(bgLejanoImg, i * Game.GAME_WIDTH - (int) (xLvlOffset * 0.5), 22, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+
+
+        for(int i = 0; i < 3; i++)
+            g.drawImage(lianasImg, i * BG_LIANAS_WIDTH - (int) (xLvlOffset * 0.7), 0, BG_LIANAS_WIDTH, BG_LIANAS_HEIGHT, null);
+        //220
+
     }
 
     @Override

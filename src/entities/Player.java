@@ -18,11 +18,11 @@ public class Player extends Entity {
     private BufferedImage[][] animations;
     private int aniTick;
     private int aniIndex;
-    private final int aniSpeed = 25;
+    private int aniSpeed = 25;
     private int playerAction = IDLE;
     private boolean moving = false, attacking = false;
     private boolean left, up, right, down, jump;
-    private final float playerSpeed = 1.0f * Game.SCALE;
+    private float playerSpeed = 1.0f * Game.SCALE;
     private int[][] lvlData;
 //    private float xDrawOffset = 21 * Game.SCALE;
 //    private float yDrawOffset = 4 * Game.SCALE;
@@ -41,7 +41,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitbox(x, y, (int)(20*Game.SCALE), (int) (28*Game.SCALE+1));
+        initHitbox(x, y, (int)(20*Game.SCALE), (int) (27*Game.SCALE+1));
     }
 
     public void update() {

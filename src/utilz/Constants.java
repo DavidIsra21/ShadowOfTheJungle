@@ -4,6 +4,19 @@ import Main.Game;
 
 public class Constants {
 
+    public static class Enviroment{
+        public static final int BG_LIANAS_WIDTH_DEFAULT = 470;
+        public static final int BG_LIANAS_HEIGHT_DEFAULT = 218;
+        public static final int BG_LEJANO_WIDTH_DEFAULT = 1536;
+        public static final int BG_LEJANO_HEIGHT_DEFAULT = 1024;
+
+        public static final int BG_LIANAS_WIDTH = (int)(BG_LIANAS_WIDTH_DEFAULT * Game.SCALE);
+        public static final int BG_LIANAS_HEIGHT = (int)(BG_LIANAS_HEIGHT_DEFAULT * Game.SCALE);
+        public static final int BG_LEJANO_WIDTH = (int)(BG_LEJANO_WIDTH_DEFAULT * Game.SCALE);
+        public static final int BG_LEJANO_HEIGHT = (int)(BG_LEJANO_HEIGHT_DEFAULT * Game.SCALE);
+
+    }
+
     public static class UI {
         public static class Buttons {
 //            public static final int B_WIDTH_DEFAULT = 140; //600
