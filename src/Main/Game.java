@@ -9,8 +9,8 @@ import java.awt.Graphics;
 
 public class Game implements Runnable{
 
-    private final GameWindow gameWindow;
-    private final GamePanel gamePanel;
+    private GameWindow gameWindow;
+    private GamePanel gamePanel;
     private Thread gameThread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
@@ -28,11 +28,19 @@ public class Game implements Runnable{
 
     public Game() {
         initClasses();
+//
+//        gamePanel = new GamePanel(this);
+//        gameWindow = new GameWindow(gamePanel);
+//        gamePanel.setFocusable(true);
+//        gamePanel.requestFocus();
 
-        gamePanel = new GamePanel(this);
-        gameWindow = new GameWindow(gamePanel);
+        this.gamePanel = new GamePanel(this);
+        this.gameWindow = new GameWindow(gamePanel);
+
         gamePanel.setFocusable(true);
+        gamePanel.requestFocus();
         gamePanel.requestFocusInWindow();
+
         startGameLoop();
     }
 
@@ -114,6 +122,7 @@ public class Game implements Runnable{
 
             if(deltaF >= 1) {
                 gamePanel.repaint();
+
                 frames++;
                 deltaF--;
             }
