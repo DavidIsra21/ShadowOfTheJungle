@@ -4,6 +4,46 @@ import Main.Game;
 
 public class Constants {
 
+    public static class EnemyConstants {
+        public static final int ENEMY1 = 0;
+
+        public static final int IDLE = 5;
+        public static final int RUNNING = 4;
+        public static final int ATTACK = 3;
+        public static final int HIT = 6;
+        public static final int DEAD = 2;
+
+        public static final int ENEMY1_WIDTH_DEFAULT = 80; //nuevo 80//72
+        public static final int ENEMY1_HEIGHT_DEFAULT = 64; //nuevo 64//32
+
+        public static final int ENEMY1_WIDTH = (int)(ENEMY1_WIDTH_DEFAULT * Game.SCALE);
+        public static final int ENEMY1_HEIGHT = (int)(ENEMY1_HEIGHT_DEFAULT * Game.SCALE);
+
+        public static final int ENEMY1_DRAWOFFSET_X = (int)(26 * Game.SCALE);
+        public static final int ENEMY1_DRAWOFFSET_Y = (int)(35 * Game.SCALE);
+
+        public static int GetSpriteAmount(int enemy_type, int enemy_state) {
+
+            switch(enemy_type) {
+                case ENEMY1:
+                    switch(enemy_state) {
+                        case IDLE:
+                            return 6;
+                            case RUNNING:
+                                return 7;
+                        case ATTACK:
+                            return 9;
+                            case HIT:
+                                return 4;
+                                case DEAD:
+                                    return 14;
+                    }
+            }
+            return 0;
+        }
+
+    }
+
     public static class Enviroment{
         public static final int BG_LIANAS_WIDTH_DEFAULT = 470;
         public static final int BG_LIANAS_HEIGHT_DEFAULT = 218;

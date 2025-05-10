@@ -41,7 +41,6 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Entrada");
         switch (Gamestate.state) {
             case MENU:
                 gamePanel.getGame().getMenu().keyPressed(e);

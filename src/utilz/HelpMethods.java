@@ -4,6 +4,8 @@ import Main.Game;
 
 import java.awt.geom.Rectangle2D;
 
+import static utilz.Constants.Directions.*;
+
 public class HelpMethods {
 
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
@@ -75,6 +77,13 @@ public class HelpMethods {
                 return false;
 
         return true;
+
+    }
+
+    public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int walkDir, int[][] lvlData) {
+        if (walkDir == RIGHT)
+            return IsSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y + hitbox.height + 1, lvlData);
+        return IsSolid(hitbox.x - xSpeed, hitbox.y + hitbox.height + 1, lvlData);
 
     }
 }
