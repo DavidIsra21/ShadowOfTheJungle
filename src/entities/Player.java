@@ -26,8 +26,8 @@ public class Player extends Entity {
     private int[][] lvlData;
 //    private float xDrawOffset = 21 * Game.SCALE;
 //    private float yDrawOffset = 4 * Game.SCALE;
-    private float xDrawOffset = 48 * Game.SCALE;
-    private float yDrawOffset = 38 * Game.SCALE;
+    private float xDrawOffset = 68 * Game.SCALE;
+    private float yDrawOffset = 56 * Game.SCALE;
 
 
     //jumping/gravity
@@ -41,7 +41,9 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitbox(x, y, (int)(20*Game.SCALE), (int) (27*Game.SCALE+1));
+        initHitbox(x, y, (int)(19*Game.SCALE), (int) (30*Game.SCALE));
+//        initHitbox(x, y, (int)(25*Game.SCALE), (int) (32*Game.SCALE));
+
     }
 
     public void update() {
@@ -57,7 +59,7 @@ public class Player extends Entity {
         //g.drawImage(animations[playerAction][aniIndex], (int)x, (int)y, (int)(244*sizeMultiplier), (int)(186*sizeMultiplier), null);
         //g.drawImage(animations[playerAction][aniIndex], (int)xDelta, (int)yDelta, (int)(200*sizeMultiplier), (int)(325*sizeMultiplier), null);
 
-        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - LvlOffset, (int) (hitbox.y - yDrawOffset), width, height, null);
+        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset) - LvlOffset, (int) (hitbox.y - yDrawOffset),  (int)(width + (30*Game.SCALE)), (int)(height + (30*Game.SCALE)), null);
         //g.drawRect((int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height);
 
         drawHitbox(g, LvlOffset);
