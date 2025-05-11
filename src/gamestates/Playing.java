@@ -54,7 +54,7 @@ public class Playing extends State implements Statemethods{
         if(!paused) {
             levelManager.update();
             player.update();
-            enemyManager.update(levelManager.getCurrentLevel().getLevelData());
+            enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
             checkCloseToBorder();
         }
         else {
@@ -151,8 +151,8 @@ public class Playing extends State implements Statemethods{
                 player.setJump(true);
                 break;
             case KeyEvent.VK_ESCAPE:
-                    paused = !paused;
-                    break;
+                paused = !paused;
+                break;
             case KeyEvent.VK_K:
                 player.setAttacking(true);
                 break;
