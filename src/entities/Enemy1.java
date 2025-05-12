@@ -24,7 +24,7 @@ public class Enemy1 extends Enemy{
     }
 
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x,y,(int)(88 * Game.SCALE),(int)(29 * Game.SCALE));
+        attackBox = new Rectangle2D.Float(x,y,(int)(58 * Game.SCALE),(int)(29 * Game.SCALE));
         attackBoxOffsetX = (int)(Game.SCALE * 30);
     }
 
@@ -35,7 +35,11 @@ public class Enemy1 extends Enemy{
     }
 
     private void updateAttackBox() {
-        attackBox.x = hitbox.x - attackBoxOffsetX;
+        if (walkDir == RIGHT) {
+            attackBox.x = hitbox.x + (int)(Game.SCALE * 5);
+        }else if (walkDir == LEFT) {
+            attackBox.x = hitbox.x - hitbox.width - (int)(Game.SCALE * 4);
+        }
         attackBox.y = hitbox.y;
     }
 

@@ -42,8 +42,6 @@ public class EnemyManager {
     private void drawEnemy1(Graphics g, int xLvlOffset) {
         for(Enemy1 e : enemies1)
             if(e.isActive()) {
-                System.out.println("enemyState: "+e.getEnemyState()+" enemyIndex: "+e.getAniIndex());
-
                 g.drawImage(enemy1Arr[e.getEnemyState()][e.getAniIndex()],
                         (int)e.getHitbox().x - xLvlOffset - ENEMY1_DRAWOFFSET_X + e.flipX(),
                         (int)e.getHitbox().y - ENEMY1_DRAWOFFSET_Y,
