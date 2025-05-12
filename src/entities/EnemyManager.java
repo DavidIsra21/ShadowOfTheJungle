@@ -5,6 +5,7 @@ import utilz.LoadSave;
 import static utilz.Constants.EnemyConstants.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -29,7 +30,8 @@ public class EnemyManager {
 
     public void update(int[][] lvlData, Player player) {
         for(Enemy1 e : enemies1) {
-            e.update(lvlData, player);
+            if(e.isActive())
+                e.update(lvlData, player);
         }
     }
 
@@ -38,11 +40,28 @@ public class EnemyManager {
     }
 
     private void drawEnemy1(Graphics g, int xLvlOffset) {
-        for(Enemy1 e : enemies1) {
-            System.out.println("enemyState: "+e.getEnemyState()+" enemyIndex: "+e.getAniIndex());
-            e.drawHitbox(g, xLvlOffset);
-            g.drawImage(enemy1Arr[e.getEnemyState()][e.getAniIndex()], (int)e.getHitbox().x - xLvlOffset - ENEMY1_DRAWOFFSET_X, (int)e.getHitbox().y - ENEMY1_DRAWOFFSET_Y, ENEMY1_WIDTH, ENEMY1_HEIGHT, null);
-        }
+        for(Enemy1 e : enemies1)
+            if(e.isActive()) {
+                System.out.println("enemyState: "+e.getEnemyState()+" enemyIndex: "+e.getAniIndex());
+
+                g.drawImage(enemy1Arr[e.getEnemyState()][e.getAniIndex()],
+                        (int)e.getHitbox().x - xLvlOffset - ENEMY1_DRAWOFFSET_X + e.flipX(),
+                        (int)e.getHitbox().y - ENEMY1_DRAWOFFSET_Y,
+                        ENEMY1_WIDTH * e.flipW(),
+                        ENEMY1_HEIGHT, null);
+                //e.drawHitbox(g, xLvlOffset);
+                //e.drawAttackBox(g, xLvlOffset);
+            }
+    }
+
+    public void checkEnemyHit(Rectangle2D.Float attackBox) {
+        for (Enemy1 e : enemies1)
+            if (e.isActive()) {
+                if(attackBox.intersects(e.getHitbox())) {
+                    e.hurt(10);
+                    return;
+                }
+            }
     }
 
     private void loadEnemyImgs() {
@@ -54,5 +73,11 @@ public class EnemyManager {
             }
         }
 
+    }
+
+    public void resetAllEnemies() {
+        for(Enemy1 e : enemies1) {
+            e.resetEnemy();
+        }
     }
 }

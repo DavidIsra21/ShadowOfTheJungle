@@ -31,6 +31,9 @@ public class LoadSave {
     public static final String BG_LIANAS = "lianas.png";
     public static final String BG_LEJANO = "bg_marco2.png";
     public static final String ENEMY1_SPRITE = "Enemy_basic.png";
+    public static final String STATUS_BAR = "empty_bar.png";
+    public static final String HEALTH_BAR = "health_bar.png";
+    public static final String ENERGY_BAR = "energy_bar.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
