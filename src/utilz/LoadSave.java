@@ -34,6 +34,7 @@ public class LoadSave {
     public static final String STATUS_BAR = "empty_bar.png";
     public static final String HEALTH_BAR = "health_bar.png";
     public static final String ENERGY_BAR = "energy_bar.png";
+    public static final String COMPLETED_IMG = "lvl_complete.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
