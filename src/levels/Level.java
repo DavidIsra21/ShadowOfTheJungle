@@ -1,11 +1,52 @@
 package levels;
 
+import Main.Game;
+import entities.Enemy1;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import static utilz.HelpMethods.GetLevelData;
+import static utilz.HelpMethods.GetEnemies1;
+import static utilz.HelpMethods.GetPlayerPointSpawn;
+
+
+
 public class Level {
 
+    private BufferedImage img;
     private int[][] lvlData;
+    private ArrayList<Enemy1> enemies;
+    private int lvlTilesWide;
+    private int maxTilesOffset;
+    private int maxLvlOffsetX;
+    private Point playerSpawn;
 
-    public Level(int [][] lvlData) {
-        this.lvlData = lvlData;
+
+    public Level(BufferedImage img) {
+        this.img = img;
+        createLevelData();
+        createEnemies();
+        calcLvlOffsets();
+        calcPlayerSpawn(img);
+    }
+
+    private void calcPlayerSpawn(BufferedImage img) {
+        playerSpawn = GetPlayerPointSpawn(img);
+    }
+
+    private void calcLvlOffsets() {
+        lvlTilesWide = img.getWidth();
+        maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+        maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
+    }
+
+    private void createEnemies() {
+        enemies = GetEnemies1(img);
+    }
+
+    private void createLevelData() {
+        lvlData = GetLevelData(img);
     }
 
     public int getSpriteIndex(int x, int y) {
@@ -14,5 +55,17 @@ public class Level {
 
     public int[][] getLevelData() {
         return lvlData;
+    }
+
+    public int getLvlOffset() {
+        return maxLvlOffsetX;
+    }
+
+    public ArrayList<Enemy1> getEnemies() {
+        return enemies;
+    }
+
+    public Point getPlayerSpawn() {
+        return playerSpawn;
     }
 }

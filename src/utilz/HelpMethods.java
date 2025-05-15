@@ -1,10 +1,15 @@
 package utilz;
 
 import Main.Game;
+import entities.Enemy1;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static utilz.Constants.Directions.*;
+import static utilz.Constants.EnemyConstants.ENEMY1;
 
 public class HelpMethods {
 
@@ -114,6 +119,48 @@ public class HelpMethods {
         else
             return IsAllTileWWalkable(firstXTile, secondXTile, yTile, lvlData);
 
+    }
+
+    public static int[][] GetLevelData(BufferedImage img) {
+        int[][] lvlData = new int[img.getHeight()][img.getWidth()];
+
+        for(int j = 0; j < img.getHeight(); j++) {
+            for(int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getRed();
+                if(value >= 20)
+                    value = 18;
+//                if(value >= 48)
+//                    value = 0;
+                lvlData[j][i] = value;
+            }
+        }
+        return lvlData;
+    }
+
+    public static ArrayList<Enemy1> GetEnemies1(BufferedImage img) {
+        ArrayList<Enemy1> list = new ArrayList<>();
+        for(int j = 0; j < img.getHeight(); j++) {
+            for(int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getGreen();
+                if(value == ENEMY1)
+                    list.add(new Enemy1(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
+            }
+        }
+        return list;
+    }
+
+    public static Point GetPlayerPointSpawn(BufferedImage img) {
+        for(int j = 0; j < img.getHeight(); j++) {
+            for(int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getGreen();
+                if(value == 100)
+                    return new Point(i * Game.TILES_SIZE, j * Game.TILES_SIZE);
+            }
+        }
+        return new Point(1 * Game.TILES_SIZE, 1 * Game.TILES_SIZE);
     }
 
 }

@@ -1,6 +1,7 @@
 package entities;
 
 import gamestates.Playing;
+import levels.Level;
 import utilz.LoadSave;
 import static utilz.Constants.EnemyConstants.*;
 
@@ -20,18 +21,22 @@ public class EnemyManager {
         this.playing = playing;
         loadEnemyImgs();
 
-        addEnemies();
     }
 
-    private void addEnemies() {
-        enemies1 = LoadSave.GetEnemies1();
-        System.out.println("size of enemies1: " + enemies1.size());
+    public void loadEnemies(Level level) {
+        enemies1 = level.getEnemies();
     }
 
     public void update(int[][] lvlData, Player player) {
+        boolean isAnyActive = false;
         for(Enemy1 e : enemies1) {
-            if(e.isActive())
+            if(e.isActive()) {
                 e.update(lvlData, player);
+                isAnyActive = true;
+            }
+        }
+        if(!isAnyActive) {
+            playing.setLevelCompleted(true);
         }
     }
 
