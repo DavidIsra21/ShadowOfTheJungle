@@ -1,6 +1,7 @@
 package gamestates;
 
 import Main.Game;
+import Traps.TrapManager;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
@@ -20,6 +21,7 @@ public class Playing extends State implements Statemethods{
     private Player player;
     private LevelManager levelManager;
     private EnemyManager enemyManager;
+    private TrapManager trapManager;
     private PausedOverlay pausedOverlay;
     private GameOverOverlay gameOverOverlay;
     private LevelCompletedOverlay levelCompletedOverlay;
@@ -56,6 +58,8 @@ public class Playing extends State implements Statemethods{
 
     private void loadStartLevel() {
         enemyManager.loadEnemies(levelManager.getCurrentLevel());
+        trapManager.loadTraps(levelManager.getCurrentLevel());
+
     }
 
     private void calcLvlOffset() {
@@ -65,6 +69,8 @@ public class Playing extends State implements Statemethods{
     private void initClasses() {
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
+        trapManager = new TrapManager(this);
+
         //player = new Player(200, 200, (int)(64*SCALE), (int)(40*SCALE));
         player = new Player(100, 200, (int)(124*game.SCALE), (int)(100*game.SCALE), this);
         //player = new Player(150, 200, (int)(192*SCALE), (int)(134*SCALE));
@@ -84,6 +90,7 @@ public class Playing extends State implements Statemethods{
             levelCompletedOverlay.update();
         }else if(!gameOver) {
             levelManager.update();
+            trapManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
             checkCloseToBorder();
@@ -117,6 +124,7 @@ public class Playing extends State implements Statemethods{
         levelManager.draw(g, xLvlOffset);
         enemyManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
+        trapManager.draw(g, xLvlOffset);
 
 
         if(paused) {
@@ -158,6 +166,10 @@ public class Playing extends State implements Statemethods{
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
+    }
+
+    public void checkSpikesTouched(Player p) {
+        trapManager.checkSpikesTouched(p);
     }
 
     @Override
@@ -263,5 +275,9 @@ public class Playing extends State implements Statemethods{
 
     public EnemyManager getEnemyManager() {
         return enemyManager;
+    }
+
+    public TrapManager getTrapManager() {
+        return trapManager;
     }
 }

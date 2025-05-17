@@ -1,7 +1,9 @@
 package levels;
 
 import Main.Game;
+import Traps.Spike;
 import entities.Enemy1;
+import utilz.HelpMethods;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,6 +19,7 @@ public class Level {
     private BufferedImage img;
     private int[][] lvlData;
     private ArrayList<Enemy1> enemies;
+    private ArrayList<Spike> spikes;
     private int lvlTilesWide;
     private int maxTilesOffset;
     private int maxLvlOffsetX;
@@ -27,8 +30,13 @@ public class Level {
         this.img = img;
         createLevelData();
         createEnemies();
+        createSpikes();
         calcLvlOffsets();
         calcPlayerSpawn(img);
+    }
+
+    private void createSpikes() {
+        spikes = HelpMethods.GetSpikes(img);
     }
 
     private void calcPlayerSpawn(BufferedImage img) {
@@ -67,5 +75,9 @@ public class Level {
 
     public Point getPlayerSpawn() {
         return playerSpawn;
+    }
+
+    public ArrayList<Spike> getSpikes() {
+        return spikes;
     }
 }

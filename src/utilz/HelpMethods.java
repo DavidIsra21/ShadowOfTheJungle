@@ -1,6 +1,7 @@
 package utilz;
 
 import Main.Game;
+import Traps.Spike;
 import entities.Enemy1;
 
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 
 import static utilz.Constants.Directions.*;
 import static utilz.Constants.EnemyConstants.ENEMY1;
+import static utilz.Constants.TrapConstants.SPIKE;
 
 public class HelpMethods {
 
@@ -161,6 +163,22 @@ public class HelpMethods {
             }
         }
         return new Point(1 * Game.TILES_SIZE, 1 * Game.TILES_SIZE);
+    }
+
+    public static ArrayList<Spike> GetSpikes(BufferedImage img) {
+        ArrayList<Spike> list = new ArrayList<>();
+
+        for(int j = 0; j < img.getHeight(); j++) {
+            for(int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getBlue();
+                if(value == SPIKE)
+                    list.add(new Spike(i * Game.TILES_SIZE, j * Game.TILES_SIZE, SPIKE));
+            }
+        }
+
+
+        return list;
     }
 
 }

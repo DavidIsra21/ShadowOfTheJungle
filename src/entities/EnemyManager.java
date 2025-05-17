@@ -47,7 +47,7 @@ public class EnemyManager {
     private void drawEnemy1(Graphics g, int xLvlOffset) {
         for(Enemy1 e : enemies1)
             if(e.isActive()) {
-                g.drawImage(enemy1Arr[e.getEnemyState()][e.getAniIndex()],
+                g.drawImage(enemy1Arr[e.getState()][e.getAniIndex()],
                         (int)e.getHitbox().x - xLvlOffset - ENEMY1_DRAWOFFSET_X + e.flipX(),
                         (int)e.getHitbox().y - ENEMY1_DRAWOFFSET_Y,
                         ENEMY1_WIDTH * e.flipW(),
@@ -59,7 +59,7 @@ public class EnemyManager {
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         for (Enemy1 e : enemies1)
-            if (e.isActive()) {
+            if (e.isActive() && (e.getState()!=DEAD)) {
                 if(attackBox.intersects(e.getHitbox())) {
                     e.hurt(10);
                     return;

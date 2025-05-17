@@ -4,6 +4,28 @@ import Main.Game;
 
 public class Constants {
 
+    public static final float GRAVITY = 0.04f * Game.SCALE;
+    public static final int ANI_SPEED = 25;
+
+
+    public static class TrapConstants {
+
+        public static final int SPIKE = 0;
+
+        public static final int SPIKE_WIDTH_DEFAULT = 32;
+        public static final int SPIKE_HEIGHT_DEFAULT = 32;
+        public static final int SPIKE_WIDTH = (int) (Game.SCALE * SPIKE_WIDTH_DEFAULT);
+        public static final int SPIKE_HEIGHT = (int) (Game.SCALE * SPIKE_HEIGHT_DEFAULT);
+
+        public static int GetSpriteAmount(int trap_type) {
+            switch (trap_type) {
+                case SPIKE:
+                    return 10;
+            }
+            return 0;
+        }
+    }
+
     public static class EnemyConstants {
         public static final int ENEMY1 = 0;
 

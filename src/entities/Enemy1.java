@@ -14,13 +14,13 @@ import static utilz.Constants.Directions.*;
 public class Enemy1 extends Enemy{
 
     //AttackBox
-    private Rectangle2D.Float attackBox;
     private int attackBoxOffsetX;
 
     public Enemy1(float x, float y) {
         super(x, y, ENEMY1_WIDTH, ENEMY1_HEIGHT, ENEMY1);
-        initHitbox(x, y, (int)(28 * Game.SCALE), (int)(29 * Game.SCALE));
+        initHitbox(28, 29);
         initAttackBox();
+        state = 5;
     }
 
     private void initAttackBox() {
@@ -50,7 +50,7 @@ public class Enemy1 extends Enemy{
         if(inAir)
             updateInAir(lvlData);
         else {
-            switch (enemyState) {
+            switch (state) {
                 case IDLE:
                     newState(RUNNING);
                     break;
@@ -66,7 +66,7 @@ public class Enemy1 extends Enemy{
                     if(aniIndex == 0 || aniIndex < 5 || aniIndex > 7)
                         attackChecked = false;
 
-                    if(aniIndex >= 5 && aniIndex <= 7 && !attackChecked && enemyState == ATTACK)
+                    if(aniIndex >= 5 && aniIndex <= 7 && !attackChecked && state == ATTACK)
                         checkPlayerHit(attackBox, player);
 
                     break;
@@ -75,20 +75,6 @@ public class Enemy1 extends Enemy{
             }
         }
     }
-
-
-
-    public void drawAttackBox(Graphics g, int xLvlOffset) {
-        g.setColor(Color.red);
-        g.drawRect((int)(attackBox.x - xLvlOffset), (int)attackBox.y, (int)(attackBox.width), (int)attackBox.height);
-//        if(walkDir == RIGHT)
-//            g.drawRect((int)(attackBox.x - xLvlOffset + width), (int)attackBox.y, (int)(attackBox.width * -1), (int)attackBox.height);
-//        else
-//            g.drawRect((int)(attackBox.x - xLvlOffset), (int)attackBox.y, (int)(attackBox.width * flipW()), (int)attackBox.height);
-
-    }
-
-
 
     public int flipX() {
         if(walkDir == RIGHT)
