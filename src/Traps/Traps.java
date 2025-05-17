@@ -26,9 +26,10 @@ public class Traps {
         if (aniTick >= ANI_SPEED) {
             aniTick = 0;
             aniIndex++;
-            if (aniIndex >= GetSpriteAmount(trap_type))
+            if (aniIndex >= GetSpriteAmount(trap_type) && trap_type == SPIKE)
+                aniIndex = 3;
+            else if(aniIndex >= GetSpriteAmount(trap_type))
                 aniIndex = 0;
-
         }
     }
 

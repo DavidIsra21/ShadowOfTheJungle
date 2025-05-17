@@ -14,24 +14,33 @@ public class Constants {
         public static final int E2_BALL_WIDTH = (int) (Game.SCALE * E2_BALL_DEFAULT_WIDTH);
         public static final int E2_BALL_HEIGHT = (int) (Game.SCALE * E2_BALL_DEFAULT_HEIGHT);
 
-        public static final float SPEED = 0.5f * Game.SCALE;
+        public static final float SPEED = 0.8f * Game.SCALE;
     }
 
 
     public static class TrapConstants {
 
         public static final int SPIKE = 0;
+        public static final int SPEAR = 1;
 
         public static final int SPIKE_WIDTH_DEFAULT = 32;
         public static final int SPIKE_HEIGHT_DEFAULT = 32;
         public static final int SPIKE_WIDTH = (int) (Game.SCALE * SPIKE_WIDTH_DEFAULT);
         public static final int SPIKE_HEIGHT = (int) (Game.SCALE * SPIKE_HEIGHT_DEFAULT);
 
+        public static final int SPEAR_WIDTH_DEFAULT = 32;
+        public static final int SPEAR_HEIGHT_DEFAULT = 32;
+        public static final int SPEAR_WIDTH = (int) (Game.SCALE * SPEAR_WIDTH_DEFAULT);
+        public static final int SPEAR_HEIGHT = (int) (Game.SCALE * SPEAR_HEIGHT_DEFAULT);
+
         public static int GetSpriteAmount(int trap_type) {
             switch (trap_type) {
                 case SPIKE:
                     return 10;
+                    case SPEAR:
+                        return 8;
             }
+
             return 0;
         }
     }

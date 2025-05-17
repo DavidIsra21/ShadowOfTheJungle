@@ -172,6 +172,10 @@ public class Playing extends State implements Statemethods{
         trapManager.checkSpikesTouched(p);
     }
 
+    public void checkSpearsTouched(Player p) {
+        trapManager.checkSpearTouched(p);
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 //        if (e.getButton() == MouseEvent.BUTTON1) {

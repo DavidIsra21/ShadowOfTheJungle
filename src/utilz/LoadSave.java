@@ -37,6 +37,7 @@ public class LoadSave {
     public static final String SPIKE = "Spike.png";
     public static final String Enemy2 = "Enemy2.png";
     public static final String E2_BALL = "E2_proyectil.png";
+    public static final String SPEAR = "Suriken.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;

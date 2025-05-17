@@ -95,6 +95,7 @@ public class Player extends Entity {
         updatePos();
         if (moving) {
             checkSpikesTouched();
+            checkSpearsTouched();
         }
 
         if(attacking)
@@ -105,6 +106,10 @@ public class Player extends Entity {
 
     private void checkSpikesTouched() {
         playing.checkSpikesTouched(this);
+    }
+
+    private void checkSpearsTouched() {
+        playing.checkSpearsTouched(this);
     }
 
     private void checkAttack() {

@@ -1,7 +1,7 @@
 package levels;
 
 import Main.Game;
-import Traps.Spike;
+import Traps.*;
 import entities.Enemy1;
 import entities.Enemy2;
 import utilz.HelpMethods;
@@ -20,6 +20,7 @@ public class Level {
     private ArrayList<Enemy1> enemies1;
     private ArrayList<Enemy2> enemies2;
     private ArrayList<Spike> spikes;
+    private ArrayList<Spear> spears;
     private int lvlTilesWide;
     private int maxTilesOffset;
     private int maxLvlOffsetX;
@@ -31,12 +32,17 @@ public class Level {
         createLevelData();
         createEnemies();
         createSpikes();
+        createSpears();
         calcLvlOffsets();
         calcPlayerSpawn(img);
     }
 
     private void createSpikes() {
         spikes = HelpMethods.GetSpikes(img);
+    }
+
+    private void createSpears() {
+        spears = HelpMethods.GetSpears(img);
     }
 
     private void calcPlayerSpawn(BufferedImage img) {
@@ -84,5 +90,9 @@ public class Level {
 
     public ArrayList<Spike> getSpikes() {
         return spikes;
+    }
+
+    public ArrayList<Spear> getSpears() {
+        return spears;
     }
 }

@@ -2,6 +2,7 @@ package utilz;
 
 import Main.Game;
 import Traps.Projectile;
+import Traps.Spear;
 import Traps.Spike;
 import entities.Enemy1;
 import entities.Enemy2;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 import static utilz.Constants.Directions.*;
 import static utilz.Constants.EnemyConstants.*;
-import static utilz.Constants.TrapConstants.SPIKE;
+import static utilz.Constants.TrapConstants.*;
 
 public class HelpMethods {
 
@@ -198,6 +199,21 @@ public class HelpMethods {
             }
         }
 
+
+        return list;
+    }
+
+    public static ArrayList<Spear> GetSpears(BufferedImage img) {
+        ArrayList<Spear> list = new ArrayList<>();
+
+        for(int j = 0; j < img.getHeight(); j++) {
+            for(int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getBlue();
+                if(value == SPEAR)
+                    list.add(new Spear(i * Game.TILES_SIZE, j * Game.TILES_SIZE, SPEAR));
+            }
+        }
 
         return list;
     }
