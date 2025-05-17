@@ -1,8 +1,10 @@
 package utilz;
 
 import Main.Game;
+import Traps.Projectile;
 import Traps.Spike;
 import entities.Enemy1;
+import entities.Enemy2;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -10,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static utilz.Constants.Directions.*;
-import static utilz.Constants.EnemyConstants.ENEMY1;
+import static utilz.Constants.EnemyConstants.*;
 import static utilz.Constants.TrapConstants.SPIKE;
 
 public class HelpMethods {
@@ -41,6 +43,11 @@ public class HelpMethods {
         float yIndex = y / Game.TILES_SIZE;
 
         return IsTileSolid((int)xIndex, (int)yIndex, lvlData);
+    }
+
+    public static boolean IsProjectileHittingLevel(Projectile p, int[][] lvlData) {
+        return IsSolid(p.getHitbox().x + p.getHitbox().width / 2, p.getHitbox().y + p.getHitbox().height / 2, lvlData);
+
     }
 
     public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
@@ -148,6 +155,20 @@ public class HelpMethods {
                 int value = color.getGreen();
                 if(value == ENEMY1)
                     list.add(new Enemy1(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
+
+            }
+        }
+        return list;
+    }
+
+    public static ArrayList<Enemy2> GetEnemies2(BufferedImage img) {
+        ArrayList<Enemy2> list = new ArrayList<>();
+        for(int j = 0; j < img.getHeight(); j++) {
+            for(int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getGreen();
+                if(value == ENEMY2)
+                    list.add(new Enemy2(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
             }
         }
         return list;

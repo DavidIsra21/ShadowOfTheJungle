@@ -61,4 +61,8 @@ public abstract class Entity {
         return aniIndex;
     }
 
+    public int getAniTick() {
+        return aniTick;
+    }
+
 }

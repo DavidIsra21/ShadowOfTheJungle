@@ -7,6 +7,16 @@ public class Constants {
     public static final float GRAVITY = 0.04f * Game.SCALE;
     public static final int ANI_SPEED = 25;
 
+    public static class Projectiles {
+        public static final int E2_BALL_DEFAULT_WIDTH = 48;
+        public static final int E2_BALL_DEFAULT_HEIGHT = 48;
+
+        public static final int E2_BALL_WIDTH = (int) (Game.SCALE * E2_BALL_DEFAULT_WIDTH);
+        public static final int E2_BALL_HEIGHT = (int) (Game.SCALE * E2_BALL_DEFAULT_HEIGHT);
+
+        public static final float SPEED = 0.5f * Game.SCALE;
+    }
+
 
     public static class TrapConstants {
 
@@ -28,6 +38,11 @@ public class Constants {
 
     public static class EnemyConstants {
         public static final int ENEMY1 = 0;
+        public static final int ENEMY2 = 2;
+
+        public static final int IDLE_E2 = 5;
+        public static final int ATTACK1_E2 = 2;
+        public static final int ATTACK2_E2 = 3;
 
         public static final int IDLE = 5;
         public static final int RUNNING = 4;
@@ -44,6 +59,15 @@ public class Constants {
         public static final int ENEMY1_DRAWOFFSET_X = (int)(26 * Game.SCALE);
         public static final int ENEMY1_DRAWOFFSET_Y = (int)(35 * Game.SCALE);
 
+        public static final int ENEMY2_WIDTH_DEFAULT = 64; //nuevo 80//72
+        public static final int ENEMY2_HEIGHT_DEFAULT = 64; //nuevo 64//32
+
+        public static final int ENEMY2_WIDTH = (int)(ENEMY1_WIDTH_DEFAULT * Game.SCALE);
+        public static final int ENEMY2_HEIGHT = (int)(ENEMY1_HEIGHT_DEFAULT * Game.SCALE);
+
+        public static final int ENEMY2_DRAWOFFSET_X = (int)(10 * Game.SCALE);
+        public static final int ENEMY2_DRAWOFFSET_Y = (int)(10 * Game.SCALE);
+
         public static int GetSpriteAmount(int enemy_type, int enemy_state) {
 
             switch(enemy_type) {
@@ -59,6 +83,15 @@ public class Constants {
                                 return 4;
                                 case DEAD:
                                     return 14;
+                    }
+                case ENEMY2:
+                    switch(enemy_state) {
+                        case IDLE_E2:
+                            return 8;
+                        case ATTACK1_E2:
+                            return 14;
+                        case ATTACK2_E2:
+                            return 14;
                     }
             }
             return 0;
