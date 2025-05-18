@@ -1,11 +1,13 @@
 package entities;
 
+import Main.Game;
 import Traps.Projectile;
 import Traps.TrapManager;
 import gamestates.Playing;
 import levels.Level;
 import utilz.LoadSave;
 import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.Numbers.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -18,18 +20,34 @@ public class EnemyManager {
     private Playing playing;
     private BufferedImage[][] enemy1Arr;
     private BufferedImage[][] enemy2Arr;
+    private BufferedImage[] number;
     private ArrayList<Enemy1> enemies1 = new ArrayList<>();
     private ArrayList<Enemy2> enemies2 = new ArrayList<>();
+    private int numEnemies;
 
     public EnemyManager(Playing playing) {
         this.playing = playing;
         loadEnemyImgs();
+        loadNumberImg();
+    }
 
+    private void loadNumberImg() {
+        BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.NUMBERS);
+        number = new BufferedImage[14];
+
+        for (int i = 0; i < number.length; i++) {
+            if (i < 7) {
+                number[i] = img.getSubimage(8 * i, 0, 8, 8);
+            } else {
+                number[i] = img.getSubimage(8 * (i-7), 8, 8, 8);
+            }
+        }
     }
 
     public void loadEnemies(Level level) {
         enemies1 = level.getEnemies1();
         enemies2 = level.getEnemies2();
+        setNumEnemies(enemies1.size());
     }
 
     public void update(int[][] lvlData, Player player, TrapManager trapManager) {
@@ -39,6 +57,7 @@ public class EnemyManager {
                 e.update(lvlData, player);
                 isAnyActive = true;
             }
+
         }
         for(Enemy2 e2 : enemies2) {
             if (e2.getState() == ATTACK1_E2 && e2.getAniIndex() == 9 && e2.getAniTick() == 0)
@@ -49,6 +68,8 @@ public class EnemyManager {
         if(!isAnyActive) {
             playing.setLevelCompleted(true);
         }
+
+
     }
 
     private void shootProjectile(Enemy2 e2, TrapManager trapManager) {
@@ -63,6 +84,18 @@ public class EnemyManager {
     public void draw(Graphics g, int xLvlOffset) {
         drawEnemy1(g, xLvlOffset);
         drawEnemy2(g, xLvlOffset);
+        drawNumbers(g, xLvlOffset);
+    }
+
+    private void drawNumbers(Graphics g, int xLvlOffset) {
+        if(numEnemies >= 0) {
+            if(numEnemies <= 4)
+                g.drawImage(number[numEnemies+2], 20, 70, NUMBER_WIDTH, NUMBER_HEIGHT, null);
+            else {
+                g.drawImage(number[numEnemies-4], 20, 70, NUMBER_WIDTH, NUMBER_HEIGHT, null);
+            }
+        }
+        System.out.println("Enemies 1: " + numEnemies);
     }
 
     private void drawEnemy1(Graphics g, int xLvlOffset) {
@@ -95,6 +128,9 @@ public class EnemyManager {
             if (e.isActive() && (e.getState()!=DEAD)) {
                 if(attackBox.intersects(e.getHitbox())) {
                     e.hurt(10);
+                    if(e.currentHealth <= 0) {
+                        changeNumEnemies(-1);
+                    }
                     return;
                 }
             }
@@ -127,5 +163,18 @@ public class EnemyManager {
         for(Enemy2 e2 : enemies2) {
             e2.resetEnemy();
         }
+        numEnemies = enemies1.size();
+    }
+
+    public void changeNumEnemies(int value) {
+        numEnemies += value;
+    }
+
+    public int getNumEnemies() {
+        return numEnemies;
+    }
+
+    public void setNumEnemies(int numEnemies) {
+        this.numEnemies = numEnemies;
     }
 }

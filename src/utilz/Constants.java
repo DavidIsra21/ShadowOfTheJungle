@@ -7,6 +7,13 @@ public class Constants {
     public static final float GRAVITY = 0.04f * Game.SCALE;
     public static final int ANI_SPEED = 25;
 
+    public static class Numbers {
+        public static final int NUMBER_WIDTH_DEFAULT = 30;
+        public static final int NUMBER_HEIGHT_DEFAULT = 30;
+        public static final int NUMBER_WIDTH = (int)(NUMBER_WIDTH_DEFAULT * Game.SCALE);
+        public static final int NUMBER_HEIGHT = (int)(NUMBER_HEIGHT_DEFAULT * Game.SCALE);
+    }
+
     public static class Projectiles {
         public static final int E2_BALL_DEFAULT_WIDTH = 48;
         public static final int E2_BALL_DEFAULT_HEIGHT = 48;
