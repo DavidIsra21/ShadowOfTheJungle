@@ -18,6 +18,7 @@ public class TrapManager {
     private Playing playing;
     private BufferedImage[] spikeImg;
     private BufferedImage[] spearImg;
+    private BufferedImage[] chessImg;
     private BufferedImage e2_BallImg;
     private ArrayList<Spike> spikes;
     private ArrayList<Spear> spears;

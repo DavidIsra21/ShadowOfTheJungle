@@ -20,10 +20,13 @@ public class EnemyManager {
     private Playing playing;
     private BufferedImage[][] enemy1Arr;
     private BufferedImage[][] enemy2Arr;
+    private BufferedImage[][] chestArr;
     private BufferedImage[] number;
     private ArrayList<Enemy1> enemies1 = new ArrayList<>();
     private ArrayList<Enemy2> enemies2 = new ArrayList<>();
+    private ArrayList<Chest> chest = new ArrayList<>();
     private int numEnemies;
+    private boolean chestOpened = false;
 
     public EnemyManager(Playing playing) {
         this.playing = playing;
@@ -47,6 +50,8 @@ public class EnemyManager {
     public void loadEnemies(Level level) {
         enemies1 = level.getEnemies1();
         enemies2 = level.getEnemies2();
+        chest = level.getChest();
+        chestOpened = false;
         setNumEnemies(enemies1.size());
     }
 
@@ -65,7 +70,13 @@ public class EnemyManager {
             e2.update(player);
 
         }
-        if(!isAnyActive) {
+        for(Chest c : chest) {
+            c.update(lvlData, player);
+            if(!c.active && c.getAniIndex()==2)
+                chestOpened = true;
+        }
+
+        if(!isAnyActive && chestOpened) {
             playing.setLevelCompleted(true);
         }
 
@@ -84,7 +95,29 @@ public class EnemyManager {
     public void draw(Graphics g, int xLvlOffset) {
         drawEnemy1(g, xLvlOffset);
         drawEnemy2(g, xLvlOffset);
+        drawChest(g, xLvlOffset);
         drawNumbers(g, xLvlOffset);
+    }
+
+    private void drawChest(Graphics g, int xLvlOffset) {
+        for(Chest c : chest)
+            if(c.isActive()) {
+                g.drawImage(chestArr[c.getState()][c.getAniIndex()],
+                        (int)c.getHitbox().x - xLvlOffset - CHEST_DRAWOFFSET_X,
+                        (int)c.getHitbox().y - CHEST_DRAWOFFSET_Y + (int)(2 * Game.SCALE),
+                        CHEST_WIDTH + (int)(10 * Game.SCALE),
+                        CHEST_HEIGHT + (int)(10 * Game.SCALE), null);
+//                c.drawHitbox(g, xLvlOffset);
+            } else{
+                g.drawImage(chestArr[c.getState()][15],
+                        (int)c.getHitbox().x - xLvlOffset - CHEST_DRAWOFFSET_X,
+                        (int)c.getHitbox().y - CHEST_DRAWOFFSET_Y + (int)(2 * Game.SCALE),
+                        CHEST_WIDTH + (int)(10 * Game.SCALE),
+                        CHEST_HEIGHT + (int)(10 * Game.SCALE), null);
+//                c.drawHitbox(g, xLvlOffset);
+
+            }
+
     }
 
     private void drawNumbers(Graphics g, int xLvlOffset) {
@@ -95,7 +128,6 @@ public class EnemyManager {
                 g.drawImage(number[numEnemies-4], 20, 70, NUMBER_WIDTH, NUMBER_HEIGHT, null);
             }
         }
-        System.out.println("Enemies 1: " + numEnemies);
     }
 
     private void drawEnemy1(Graphics g, int xLvlOffset) {
@@ -134,11 +166,22 @@ public class EnemyManager {
                     return;
                 }
             }
+        for (Chest c : chest)
+            if (c.isActive() && c.getState()!=OPEN_CHEST) {
+                if(attackBox.intersects(c.getHitbox())) {
+                    c.hurt(10);
+                    if(c.currentHealth <= 0) {
+//                        chestOpened = true;
+                    }
+                    return;
+                }
+            }
     }
 
     private void loadEnemyImgs() {
         enemy1Arr = new BufferedImage[6][14];
         enemy2Arr = new BufferedImage[6][14];
+        chestArr = new BufferedImage[3][16];
 
         BufferedImage temp1 = LoadSave.GetSpriteAtlas(LoadSave.ENEMY1_SPRITE);
         for(int j = 0; j < enemy1Arr.length; j++) {
@@ -154,6 +197,13 @@ public class EnemyManager {
             }
         }
 
+        BufferedImage temp3 = LoadSave.GetSpriteAtlas(LoadSave.CHEST);
+        for(int j = 0; j < chestArr.length; j++) {
+            for (int i = 0; i < chestArr[j].length; i++) {
+                chestArr[j][i] = temp3.getSubimage(i * CHEST_WIDTH_DEFAULT, j * CHEST_HEIGHT_DEFAULT, CHEST_WIDTH_DEFAULT, CHEST_HEIGHT_DEFAULT);
+            }
+        }
+
     }
 
     public void resetAllEnemies() {
@@ -162,6 +212,9 @@ public class EnemyManager {
         }
         for(Enemy2 e2 : enemies2) {
             e2.resetEnemy();
+        }
+        for(Chest c : chest) {
+            c.resetEnemy();
         }
         numEnemies = enemies1.size();
     }

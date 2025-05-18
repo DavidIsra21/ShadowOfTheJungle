@@ -4,6 +4,7 @@ import Main.Game;
 import Traps.Projectile;
 import Traps.Spear;
 import Traps.Spike;
+import entities.Chest;
 import entities.Enemy1;
 import entities.Enemy2;
 
@@ -175,6 +176,19 @@ public class HelpMethods {
         return list;
     }
 
+    public static ArrayList<Chest> GetChest(BufferedImage img) {
+        ArrayList<Chest> list = new ArrayList<>();
+        for(int j = 0; j < img.getHeight(); j++) {
+            for(int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getGreen();
+                if(value == CHEST)
+                    list.add(new Chest(i * Game.TILES_SIZE, j * Game.TILES_SIZE));
+            }
+        }
+        return list;
+    }
+
     public static Point GetPlayerPointSpawn(BufferedImage img) {
         for(int j = 0; j < img.getHeight(); j++) {
             for(int i = 0; i < img.getWidth(); i++) {
@@ -217,5 +231,7 @@ public class HelpMethods {
 
         return list;
     }
+
+
 
 }

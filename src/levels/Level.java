@@ -2,6 +2,7 @@ package levels;
 
 import Main.Game;
 import Traps.*;
+import entities.Chest;
 import entities.Enemy1;
 import entities.Enemy2;
 import utilz.HelpMethods;
@@ -19,6 +20,7 @@ public class Level {
     private int[][] lvlData;
     private ArrayList<Enemy1> enemies1;
     private ArrayList<Enemy2> enemies2;
+    private ArrayList<Chest> chest;
     private ArrayList<Spike> spikes;
     private ArrayList<Spear> spears;
     private int lvlTilesWide;
@@ -58,6 +60,7 @@ public class Level {
     private void createEnemies() {
         enemies1 = GetEnemies1(img);
         enemies2 = GetEnemies2(img);
+        chest = GetChest(img);
     }
 
     private void createLevelData() {
@@ -82,6 +85,10 @@ public class Level {
 
     public ArrayList<Enemy2> getEnemies2() {
         return enemies2;
+    }
+
+    public ArrayList<Chest> getChest() {
+        return chest;
     }
 
     public Point getPlayerSpawn() {

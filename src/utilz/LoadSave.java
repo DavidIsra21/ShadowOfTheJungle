@@ -40,6 +40,8 @@ public class LoadSave {
     public static final String SPEAR = "Suriken.png";
     public static final String GAMEOVER_SCREEN = "GameOver_Screen.png";
     public static final String NUMBERS = "numbers.png";
+    public static final String CHEST = "Chest.png";
+    public static final String OPTIONS_BG = "options_bg.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;

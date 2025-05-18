@@ -1,6 +1,7 @@
 package utilz;
 
 import Main.Game;
+import gamestates.State;
 
 public class Constants {
 
@@ -55,6 +56,11 @@ public class Constants {
     public static class EnemyConstants {
         public static final int ENEMY1 = 0;
         public static final int ENEMY2 = 2;
+        public static final int CHEST = 3;
+
+        public static final int CLOSE_CHEST = 1;
+        public static final int OPEN_CHEST = 0;
+        public static final int HIT_CHEST = 2;
 
         public static final int IDLE_E2 = 5;
         public static final int ATTACK1_E2 = 2;
@@ -84,6 +90,15 @@ public class Constants {
         public static final int ENEMY2_DRAWOFFSET_X = (int)(10 * Game.SCALE);
         public static final int ENEMY2_DRAWOFFSET_Y = (int)(10 * Game.SCALE);
 
+        public static final int CHEST_WIDTH_DEFAULT = 64; //nuevo 80//72
+        public static final int CHEST_HEIGHT_DEFAULT = 32; //nuevo 64//32
+
+        public static final int CHEST_WIDTH = (int)(CHEST_WIDTH_DEFAULT * Game.SCALE);
+        public static final int CHEST_HEIGHT = (int)(CHEST_HEIGHT_DEFAULT * Game.SCALE);
+
+        public static final int CHEST_DRAWOFFSET_X = (int)(22 * Game.SCALE);
+        public static final int CHEST_DRAWOFFSET_Y = (int)(12 * Game.SCALE);
+
         public static int GetSpriteAmount(int enemy_type, int enemy_state) {
 
             switch(enemy_type) {
@@ -109,6 +124,15 @@ public class Constants {
                         case ATTACK2_E2:
                             return 14;
                     }
+                case CHEST:
+                    switch(enemy_state) {
+                        case CLOSE_CHEST:
+                            return 6;
+                        case OPEN_CHEST:
+                            return 16;
+                        case HIT_CHEST:
+                            return 1;
+                    }
             }
             return 0;
         }
@@ -117,6 +141,8 @@ public class Constants {
             switch (enemy_type) {
                 case ENEMY1:
                     return 10;
+                case CHEST:
+                    return 20;
                     default:
                         return 0;
             }

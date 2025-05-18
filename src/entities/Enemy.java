@@ -102,9 +102,16 @@ public abstract class Enemy extends Entity {
     public void hurt(int amount) {
         currentHealth -= amount;
         if (currentHealth <= 0) {
-            newState(DEAD);
+            if(enemyType == CHEST)
+                newState(OPEN_CHEST);
+            else
+                newState(DEAD);
         } else {
-            newState(HIT);
+            if(enemyType == CHEST) {
+                newState(HIT_CHEST);
+            }
+            else
+                newState(HIT);
         }
     }
 
@@ -128,6 +135,12 @@ public abstract class Enemy extends Entity {
                     case ATTACK, HIT -> state = IDLE;
                     case DEAD -> active = false;
                 }
+
+                if(state == OPEN_CHEST) {
+                    System.out.println("chest dead");
+                    active = false;
+                }
+
             }
         }
     }
@@ -146,7 +159,10 @@ public abstract class Enemy extends Entity {
         hitbox.y = y;
         firstUpdate = true;
         currentHealth = maxHealth;
-        newState(IDLE);
+        if(enemyType == CHEST)
+            newState(CLOSE_CHEST);
+        else
+            newState(IDLE);
         active = true;
         airSpeed = 0;
     }
